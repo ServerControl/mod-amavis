@@ -1,0 +1,52 @@
+Directories:
+   Base:
+      bin:
+         name: bin
+         chmod: 755
+         user: root
+         group: root
+      data:
+         name: var/data
+         chmod: 755
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+      db:
+         name: var/data/db
+         chmod: 755
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+      quarantine:
+         name: var/data/quarantine
+         chmod: 755
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+
+   Runtime:
+      pid:
+         name: var/run
+         chmod: 755
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+      tmp:
+         name: var/tmp
+         chmod: 1777
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+
+   Configuration:
+      conf:
+         name: etc
+         chmod: 755
+         user: root
+         group: root
+
+Files:
+   Exec:
+      amavisd:
+         name: bin/amavis-<%= __PACKAGE__->get_name %>
+         link: <%= ServerControl::Schema->get('amavisd-new') %>
+   Configuration:
+      conf:
+         name: etc/amavisd.conf
+         call: <% sub { ServerControl::Template->parse(@_); } %>
+
