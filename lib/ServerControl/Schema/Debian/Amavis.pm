@@ -14,7 +14,7 @@ use base qw(ServerControl::Schema::Module);
 
 __PACKAGE__->register(
    
-      'amavisd-new'           => '/usr/bin/amavisd-new',
+      'amavisd-new'           => '/usr/sbin/amavisd-new',
 
 );
 
